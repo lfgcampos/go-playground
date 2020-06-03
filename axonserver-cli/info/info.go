@@ -11,7 +11,8 @@ func AppInfo(app *cli.App) {
 	// EXAMPLE: Append to an existing template
 	cli.AppHelpTemplate = fmt.Sprintf(`%s
 WEBSITE: https://axoniq.io/
-SUPPORT: support@axoniq.io`, cli.AppHelpTemplate)
+SUPPORT: support@axoniq.io
+`, cli.AppHelpTemplate)
 
 	app.Name = "AxonServer-CLI"
 	app.Description = "AxonServer-CLI in GO"
