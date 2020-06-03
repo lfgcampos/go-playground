@@ -1,10 +1,11 @@
-package commands
+package user
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io.axoniq.cli/commands"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -51,14 +52,14 @@ func UserRegisterSubCommand(app *cli.App) {
 }
 
 func registerUser() {
-	log.Println("calling: " + server + registerUserUrl)
+	log.Println("calling: " + commands.Server + registerUserUrl)
 	userJson := buildUserJson()
-	req, err := http.NewRequest("POST", server+registerUserUrl, bytes.NewBuffer(userJson))
+	req, err := http.NewRequest("POST", commands.Server+registerUserUrl, bytes.NewBuffer(userJson))
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
 	}
-	req.Header.Set(axonTokenKey, token)
-	req.Header.Set(contentType, jsonType)
+	req.Header.Set(commands.AxonTokenKey, commands.Token)
+	req.Header.Set(commands.ContentType, commands.JsonType)
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -76,7 +77,7 @@ func buildUserJson() []byte {
 	user := &user{
 		Username: username,
 		Password: password,
-		Roles: roles.Value(),
+		Roles:    roles.Value(),
 	}
 	userJson, err := json.Marshal(&user)
 	if err != nil {

@@ -1,8 +1,9 @@
-package commands
+package application
 
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io.axoniq.cli/commands"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,12 +28,12 @@ func ApplicationListSubCommand(app *cli.App) {
 }
 
 func listApplications() {
-	log.Println("calling: " + server + listApplicationUrl)
-	req, err := http.NewRequest("GET", server+listApplicationUrl, nil)
+	log.Println("calling: " + commands.Server + listApplicationUrl)
+	req, err := http.NewRequest("GET", commands.Server+listApplicationUrl, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
 	}
-	req.Header.Set(axonTokenKey, token)
+	req.Header.Set(commands.AxonTokenKey, commands.Token)
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {

@@ -10,7 +10,7 @@ import (
 func AppInfo(app *cli.App) {
 	// EXAMPLE: Append to an existing template
 	cli.AppHelpTemplate = fmt.Sprintf(`%s
-WEBSITE: https://console.cloud.axoniq.io/
+WEBSITE: https://axoniq.io/
 SUPPORT: support@axoniq.io`, cli.AppHelpTemplate)
 
 	app.Name = "AxonServer-CLI"
@@ -19,6 +19,6 @@ SUPPORT: support@axoniq.io`, cli.AppHelpTemplate)
 	app.Version = "v1"
 	app.Compiled = time.Now()
 	app.Copyright = "AxonIQ"
-	app.Authors = []*cli.Author{{Name: "Lucas name", Email: "Lucas email"}}
+	app.Authors = []*cli.Author{{Name: "Lucas Campos", Email: "lfgcampos@axoniq.io"}}
 	app.EnableBashCompletion = true
 }

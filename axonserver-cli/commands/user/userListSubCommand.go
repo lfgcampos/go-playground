@@ -1,8 +1,9 @@
-package commands
+package user
 
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io.axoniq.cli/commands"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,12 +28,12 @@ func UserListSubCommand(app *cli.App) {
 }
 
 func listUsers() {
-	log.Println("calling: " + server + listUserUrl)
-	req, err := http.NewRequest("GET", server+listUserUrl, nil)
+	log.Println("calling: " + commands.Server + listUserUrl)
+	req, err := http.NewRequest("GET", commands.Server+listUserUrl, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
 	}
-	req.Header.Set(axonTokenKey, token)
+	req.Header.Set(commands.AxonTokenKey, commands.Token)
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {

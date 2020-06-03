@@ -1,8 +1,9 @@
-package commands
+package context
 
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io.axoniq.cli/commands"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,12 +28,12 @@ func ContextListSubCommand(app *cli.App) {
 }
 
 func listContexts() {
-	log.Println("calling: " + server + listContextUrl)
-	req, err := http.NewRequest("GET", server+listContextUrl, nil)
+	log.Println("calling: " + commands.Server + listContextUrl)
+	req, err := http.NewRequest("GET", commands.Server+listContextUrl, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
 	}
-	req.Header.Set(axonTokenKey, token)
+	req.Header.Set(commands.AxonTokenKey, commands.Token)
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {

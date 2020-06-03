@@ -3,6 +3,9 @@ package main
 import (
 	"github.com/urfave/cli/v2"
 	"io.axoniq.cli/commands"
+	"io.axoniq.cli/commands/application"
+	"io.axoniq.cli/commands/context"
+	"io.axoniq.cli/commands/user"
 	"io.axoniq.cli/info"
 	"log"
 	"os"
@@ -15,17 +18,17 @@ func main() {
 	commands.Flags(app)
 
 	// users
-	commands.UserCommand(app)
-	commands.UserListSubCommand(app)
-	commands.UserRegisterSubCommand(app)
+	user.UserCommand(app)
+	user.UserListSubCommand(app)
+	user.UserRegisterSubCommand(app)
 
 	// contexts
-	commands.ContextCommand(app)
-	commands.ContextListSubCommand(app)
+	context.ContextCommand(app)
+	context.ContextListSubCommand(app)
 
 	// applications
-	commands.ApplicationCommand(app)
-	commands.ApplicationListSubCommand(app)
+	application.ApplicationCommand(app)
+	application.ApplicationListSubCommand(app)
 
 	err := app.Run(os.Args)
 	if err != nil {
