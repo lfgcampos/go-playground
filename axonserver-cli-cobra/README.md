@@ -1,3 +1,9 @@
+## Deprecated
+
+Repo moved to [axon-server-cli](https://github.com/lfgcampos/axon-server-cli).
+
+---
+
 # Axon Server Command line interface
 
 The intention of this repo is to have a similar cli as in [axon-server-cli](https://github.com/AxonIQ/axon-server-se/tree/master/axonserver-cli) but written in go instead of java.
