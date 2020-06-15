@@ -27,7 +27,7 @@ For the [Axon Server Standard edition](https://axoniq.io/product-overview/axon-s
 * [ ] add-node-to-context
 * [ ] delete-node-from-context
 
-The option -S with the url to the Axon Server is optional, if it is omitted it defaults to [http://localhost:8024](http://localhost:8024/).
+The option `-S` with the url to the Axon Server is optional, if it is omitted it defaults to [http://localhost:8024](http://localhost:8024/).
 
 ## Access control
 
@@ -35,8 +35,8 @@ When running Axon Server with access control enabled, executing commands remotel
 This has to provided with the `-t` option. When you run a command on the Axon Server node itself, you don't have to provide 
 a token.
 
-For Axon Server Standard Edition the token is specified in the `axonserver.properties` file \(property name = `axoniq.axonserver.token`\). The token needs to be supplied using the _**-t**_ option in any of the commands.
-For this specific cli, you can also set a ENV named `AXON_TOKEN` with the desired value or a file named `token` on the same directory of the cli.
+For Axon Server Standard Edition the token is specified in the `axonserver.properties` file \(property name = `axoniq.axonserver.token`\). The token needs to be supplied using the `-t` option in any of the commands.
+For this specific cli, you can also set a ENV variable named `AXON_TOKEN` with the desired value or a file named `token` on the same directory of the cli.
 
 ## Commands
 

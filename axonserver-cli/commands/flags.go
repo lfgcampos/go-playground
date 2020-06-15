@@ -1,16 +1,14 @@
 package commands
 
 import (
-	"github.com/urfave/cli/v2"
 	"sort"
 )
 
 func Flags(app *cli.App) {
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
-			Name:  "token",
-			Usage: "Authentication Token",
-			//Required:    true,
+			Name:        "token",
+			Usage:       "Authentication Token",
 			Aliases:     []string{"t"},
 			FilePath:    "token",
 			EnvVars:     []string{"AXON_TOKEN"},
