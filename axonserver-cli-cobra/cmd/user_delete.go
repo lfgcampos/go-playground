@@ -31,7 +31,7 @@ var userDeleteCmd = &cobra.Command{
 	Aliases: []string{"d"},
 	Short:   "Remove a user",
 	Long:    `remove a user from axonserver`,
-	RunE:    deleteUser,
+	Run:     deleteUser,
 }
 
 func init() {
@@ -39,27 +39,22 @@ func init() {
 	userDeleteCmd.Flags().StringVarP(&username, "username", "u", "", "user username")
 }
 
-func deleteUser(cmd *cobra.Command, args []string) error {
+func deleteUser(cmd *cobra.Command, args []string) {
 	log.Println("calling: " + viper.GetString("server") + deleteUserUrl + username)
 	req, err := http.NewRequest("DELETE", viper.GetString("server")+deleteUserUrl+username, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
-		return err
 	}
 	req.Header.Set(axonTokenKey, viper.GetString("token"))
-	req.Header.Set(contentType, jsonType)
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal("Error reading response. ", err)
-		return err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body. ", err)
-		return err
 	}
 	fmt.Printf("%s\n", body)
-	return nil
 }

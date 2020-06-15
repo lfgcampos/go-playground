@@ -26,9 +26,9 @@ var username, password string
 var roles []string
 
 type user struct {
-	Username string   `json:"userName"`
-	Password string   `json:"password"`
-	Roles    []string `json:"roles"`
+	username string   `json:"userName"`
+	password string   `json:"password"`
+	roles    []string `json:"roles"`
 }
 
 var userCmd = &cobra.Command{

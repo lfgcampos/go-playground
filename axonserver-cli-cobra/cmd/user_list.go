@@ -30,33 +30,29 @@ var userListCmd = &cobra.Command{
 	Aliases: []string{"l"},
 	Short:   "list all the users",
 	Long:    `use to list all the users on the server`,
-	RunE:    listUsers,
+	Run:     listUsers,
 }
 
 func init() {
 	userCmd.AddCommand(userListCmd)
 }
 
-func listUsers(cmd *cobra.Command, args []string) error {
+func listUsers(cmd *cobra.Command, args []string) {
 	log.Println("calling: " + viper.GetString("server") + listUserUrl)
 	req, err := http.NewRequest("GET", viper.GetString("server")+listUserUrl, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
-		return err
 	}
 	req.Header.Set(axonTokenKey, viper.GetString("token"))
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal("Error reading response. ", err)
-		return err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body. ", err)
-		return err
 	}
 	fmt.Printf("%s\n", body)
-	return nil
 }

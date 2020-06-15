@@ -32,7 +32,7 @@ var userRegisterCmd = &cobra.Command{
 	Aliases: []string{"r"},
 	Short:   "Register a user",
 	Long:    `register a user to be used on axonserver`,
-	RunE:    registerUser,
+	Run:     registerUser,
 }
 
 func init() {
@@ -43,13 +43,12 @@ func init() {
 	userRegisterCmd.Flags().StringSliceVarP(&roles, "roles", "r", []string{}, "user roles")
 }
 
-func registerUser(cmd *cobra.Command, args []string) error {
+func registerUser(cmd *cobra.Command, args []string) {
 	log.Println("calling: " + viper.GetString("server") + registerUserUrl)
 	userJson := buildUserJson()
 	req, err := http.NewRequest("POST", viper.GetString("server")+registerUserUrl, bytes.NewBuffer(userJson))
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
-		return err
 	}
 	req.Header.Set(axonTokenKey, viper.GetString("token"))
 	req.Header.Set(contentType, jsonType)
@@ -57,23 +56,20 @@ func registerUser(cmd *cobra.Command, args []string) error {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal("Error reading response. ", err)
-		return err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body. ", err)
-		return err
 	}
 	fmt.Printf("%s\n", body)
-	return nil
 }
 
 func buildUserJson() []byte {
 	user := &user{
-		Username: username,
-		Password: password,
-		Roles:    roles,
+		username: username,
+		password: password,
+		roles:    roles,
 	}
 	userJson, err := json.Marshal(&user)
 	if err != nil {

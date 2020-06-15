@@ -30,33 +30,29 @@ var contextListCmd = &cobra.Command{
 	Aliases: []string{"l"},
 	Short:   "list all the contexts",
 	Long:    `use to list all the contexts on the server`,
-	RunE:    listContexts,
+	Run:     listContexts,
 }
 
 func init() {
 	contextCmd.AddCommand(contextListCmd)
 }
 
-func listContexts(cmd *cobra.Command, args []string) error {
+func listContexts(cmd *cobra.Command, args []string) {
 	log.Println("calling: " + viper.GetString("server") + contextListUrl)
 	req, err := http.NewRequest("GET", viper.GetString("server")+contextListUrl, nil)
 	if err != nil {
 		log.Fatal("Error reading request. ", err)
-		return err
 	}
 	req.Header.Set(axonTokenKey, viper.GetString("token"))
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal("Error reading response. ", err)
-		return err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal("Error reading body. ", err)
-		return err
 	}
 	fmt.Printf("%s\n", body)
-	return nil
 }

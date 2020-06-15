@@ -52,6 +52,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is axonserver-cli.yaml)")
 
 	rootCmd.PersistentFlags().StringVarP(&server, "server", "S", "http://localhost:8024", "URL of AxonServer")
